@@ -16,46 +16,9 @@ async function orderByName(json){
 }
 
 module.exports = {
-  async expiredProductsToday(request, response){
-    try {
-      const json = []
-
-      fs.createReadStream(products)
-      .pipe(csv())
-      .on('data', (row) => {
-        json.push(row)
-      })
-      .on('end', async () => {
-        const data = await filterByExpiration(json, 0)
-        
-        response.status(200).send({data})
-      })
-    } catch (error) {
-      response.status(400).send({'error': 'Aconteceu um erro!'})
-    }
-  },
-
-  async expiredProductsTomorrow(request, response){
-    try {
-      const json = []
-
-      fs.createReadStream(products)
-      .pipe(csv())
-      .on('data', (row) => {
-        json.push(row)
-      })
-      .on('end', async () => {
-        const data = await filterByExpiration(json, 1)
-        
-        response.status(200).send({data})
-      })
-    } catch (error) {
-      response.status(400).send({'error': 'Aconteceu um erro!'})
-    }
-  },
-
   async orderProducts(request, response){
     try {
+      const due = request.params.due
       const json = []
 
       fs.createReadStream(products)
@@ -64,7 +27,8 @@ module.exports = {
         json.push(row)
       })
       .on('end', async () => {
-        const data = await orderByName(json)
+        const rawData = await filterByExpiration(json, due)
+        const data = await orderByName(rawData)
         
         response.status(200).send({data})
       })

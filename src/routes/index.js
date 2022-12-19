@@ -11,10 +11,6 @@ routes.get('/', (request, response) => {
 });
 
 // Rota principal para listagem de produtos
-routes.get('/products', ProductsController.orderProducts);
-
-routes.get('/products/expired-today', ProductsController.expiredProductsToday);
-
-routes.get('/products/expired-tomorrow', ProductsController.expiredProductsTomorrow);
+routes.get('/products/:due', ProductsController.orderProducts);
 
 module.exports = routes;

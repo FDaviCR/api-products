@@ -11,24 +11,9 @@ describe('Testes de endpoints', () => {
   })
 
   test('Deve retornar um json com uma propriedade chamada "data" com dados', async () => {
-    const res = await request(app).get('/products')
+    const res = await request(app).get('/products/1')
 
     expect(res.body).toHaveProperty('data')
     expect(res.statusCode).toEqual(200)
   })
-
-  test('Deve retornar um json com uma propriedade chamada "data" com dados', async () => {
-    const res = await request(app).get('/products/expired-today')
-
-    expect(res.body).toHaveProperty('data')
-    expect(res.statusCode).toEqual(200)
-  })
-
-  test('Deve retornar um json com uma propriedade chamada "data" com dados', async () => {
-    const res = await request(app).get('/products/expired-tomorrow')
-
-    expect(res.body).toHaveProperty('data')
-    expect(res.statusCode).toEqual(200)
-  })
-
 })
