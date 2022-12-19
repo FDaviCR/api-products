@@ -26,9 +26,9 @@ module.exports = {
         json.push(row)
       })
       .on('end', async () => {
-        const filteredResult = await filterByExpiration(json, 0)
+        const data = await filterByExpiration(json, 0)
         
-        response.status(200).send(filteredResult)
+        response.status(200).send({data})
       })
     } catch (error) {
       response.status(400).send({'error': 'Aconteceu um erro!'})
@@ -45,9 +45,9 @@ module.exports = {
         json.push(row)
       })
       .on('end', async () => {
-        const filteredResult = await filterByExpiration(json, 1)
+        const data = await filterByExpiration(json, 1)
         
-        response.status(200).send(filteredResult)
+        response.status(200).send({data})
       })
     } catch (error) {
       response.status(400).send({'error': 'Aconteceu um erro!'})
@@ -64,9 +64,9 @@ module.exports = {
         json.push(row)
       })
       .on('end', async () => {
-        const sortedResult = await orderByName(json)
+        const data = await orderByName(json)
         
-        response.status(200).send(sortedResult)
+        response.status(200).send({data})
       })
     } catch (error) {
       response.status(400).send({'error': 'Aconteceu um erro!'})
