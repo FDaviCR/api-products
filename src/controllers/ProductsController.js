@@ -21,17 +21,23 @@ module.exports = {
       const due = request.params.due
       const json = []
 
-      fs.createReadStream(products)
-      .pipe(csv())
-      .on('data', (row) => {
-        json.push(row)
-      })
-      .on('end', async () => {
-        const rawData = await filterByExpiration(json, due)
-        const data = await orderByName(rawData)
-        
-        response.status(200).send({data})
-      })
+      if(due == 0 || due == 1){
+        fs.createReadStream(products)
+        .pipe(csv())
+        .on('data', (row) => {
+          json.push(row)
+        })
+        .on('end', async () => {
+          const rawData = await filterByExpiration(json, due)
+          const data = await orderByName(rawData)
+          
+          response.status(200).send({data})
+        })
+      }else{
+        response.status(400).send({'error': 'Entrada inválida!'})
+      }
+
+      
     } catch (error) {
       response.status(400).send({'error': 'Aconteceu um erro!'})
     }

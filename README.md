@@ -12,6 +12,9 @@ A API contem dois endpoints:
 # Para instalação dos pacotes
     npm install
 
+# Para rodar o projeto em desenvolvimento
+    npm run dev
+
 # Para rodar o projeto
     npm start
 
